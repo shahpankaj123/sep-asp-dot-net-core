@@ -1,8 +1,5 @@
-
 using Microsoft.EntityFrameworkCore;
 using models;
-
-
 namespace data;
 
 public class AppDbContext : DbContext
@@ -13,4 +10,5 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Todo> Todos { get; set; }
+
 }
