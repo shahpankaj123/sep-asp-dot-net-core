@@ -33,7 +33,7 @@ public class Employee
     public string Department { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Date of joining is required")]
-    public DateTime DateOfJoining { get; set; }
+    public DateOnly DateOfJoining { get; set; }
 
     [Range(18, 65, ErrorMessage = "Age must be between 18 and 65")]
     public int Age { get; set; }
