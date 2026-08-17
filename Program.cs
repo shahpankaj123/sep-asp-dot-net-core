@@ -41,6 +41,14 @@ app.Use(async (context, next) =>
     }
 });
 
+app.Use(async (context, next) =>
+{
+    Console.WriteLine("Middleware 2: Checking authentication");
+
+    await next();
+});
+
+
 app.MapControllers();
 
 
