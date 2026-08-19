@@ -1,6 +1,7 @@
 using services;
 using data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,11 +49,16 @@ app.Use(async (context, next) =>
     await next();
 });
 
+app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "media")
+    ),
+    RequestPath = "/media"
+});
 
 app.MapControllers();
-
-
-
 
 app.Run();
 

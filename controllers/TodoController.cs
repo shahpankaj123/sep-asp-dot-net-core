@@ -71,4 +71,24 @@ public class TodoController : ControllerBase
 
         return Ok(new CommonResponse("Todo Deleted Successfully", 200));
     }
+
+    [HttpPost("Upload")]
+    public IActionResult UploadFile(IFormFile file)
+    {
+        string? fileName = todoService.uploadImage(file);
+
+        if (fileName == null)
+        {
+            return BadRequest(new CommonResponse("Upload failed", 400));
+        }
+
+        var fileUrl = $"{Request.Scheme}://{Request.Host}/media/users/{fileName}";
+
+        return Ok(new
+        {
+            message = "File uploaded successfully",
+            fileName = fileName,
+            url = fileUrl
+        });
+    }
 }

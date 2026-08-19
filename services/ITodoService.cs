@@ -14,4 +14,6 @@ public interface ITodoService
     bool UpdateTodo(TodoUpdateDto dt);
 
     bool DeleteTodo(int todoId);
+
+    string? uploadImage(IFormFile file);
 }
