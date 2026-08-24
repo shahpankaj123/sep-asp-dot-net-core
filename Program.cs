@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -15,9 +16,22 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         )
     ));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddScoped<ITodoService, TodoServicesImpl>();
 
 var app = builder.Build();
+
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 
